@@ -1,0 +1,71 @@
+c:\users\conner bell\documents\visual studio 2015\Projects\EC2 Management Tool\EC2 Management Tool\bin\roslyn\csc.exe
+c:\users\conner bell\documents\visual studio 2015\Projects\EC2 Management Tool\EC2 Management Tool\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+c:\users\conner bell\documents\visual studio 2015\Projects\EC2 Management Tool\EC2 Management Tool\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+c:\users\conner bell\documents\visual studio 2015\Projects\EC2 Management Tool\EC2 Management Tool\bin\roslyn\Microsoft.CodeAnalysis.dll
+c:\users\conner bell\documents\visual studio 2015\Projects\EC2 Management Tool\EC2 Management Tool\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+c:\users\conner bell\documents\visual studio 2015\Projects\EC2 Management Tool\EC2 Management Tool\bin\roslyn\Microsoft.CSharp.Core.targets
+c:\users\conner bell\documents\visual studio 2015\Projects\EC2 Management Tool\EC2 Management Tool\bin\roslyn\Microsoft.VisualBasic.Core.targets
+c:\users\conner bell\documents\visual studio 2015\Projects\EC2 Management Tool\EC2 Management Tool\bin\roslyn\System.Collections.Immutable.dll
+c:\users\conner bell\documents\visual studio 2015\Projects\EC2 Management Tool\EC2 Management Tool\bin\roslyn\System.Reflection.Metadata.dll
+c:\users\conner bell\documents\visual studio 2015\Projects\EC2 Management Tool\EC2 Management Tool\bin\roslyn\vbc.exe
+c:\users\conner bell\documents\visual studio 2015\Projects\EC2 Management Tool\EC2 Management Tool\bin\roslyn\VBCSCompiler.exe
+c:\users\conner bell\documents\visual studio 2015\Projects\EC2 Management Tool\EC2 Management Tool\bin\roslyn\VBCSCompiler.exe.config
+c:\users\conner bell\documents\visual studio 2015\Projects\EC2 Management Tool\EC2 Management Tool\bin\EC2 Management Tool.dll.config
+c:\users\conner bell\documents\visual studio 2015\Projects\EC2 Management Tool\EC2 Management Tool\bin\EC2 Management Tool.dll
+c:\users\conner bell\documents\visual studio 2015\Projects\EC2 Management Tool\EC2 Management Tool\bin\EC2 Management Tool.pdb
+c:\users\conner bell\documents\visual studio 2015\Projects\EC2 Management Tool\EC2 Management Tool\bin\Antlr3.Runtime.dll
+c:\users\conner bell\documents\visual studio 2015\Projects\EC2 Management Tool\EC2 Management Tool\bin\EntityFramework.dll
+c:\users\conner bell\documents\visual studio 2015\Projects\EC2 Management Tool\EC2 Management Tool\bin\EntityFramework.SqlServer.dll
+c:\users\conner bell\documents\visual studio 2015\Projects\EC2 Management Tool\EC2 Management Tool\bin\Microsoft.AspNet.Identity.Core.dll
+c:\users\conner bell\documents\visual studio 2015\Projects\EC2 Management Tool\EC2 Management Tool\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+c:\users\conner bell\documents\visual studio 2015\Projects\EC2 Management Tool\EC2 Management Tool\bin\Microsoft.AspNet.Identity.Owin.dll
+c:\users\conner bell\documents\visual studio 2015\Projects\EC2 Management Tool\EC2 Management Tool\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+c:\users\conner bell\documents\visual studio 2015\Projects\EC2 Management Tool\EC2 Management Tool\bin\Microsoft.Owin.dll
+c:\users\conner bell\documents\visual studio 2015\Projects\EC2 Management Tool\EC2 Management Tool\bin\Microsoft.Owin.Host.SystemWeb.dll
+c:\users\conner bell\documents\visual studio 2015\Projects\EC2 Management Tool\EC2 Management Tool\bin\Microsoft.Owin.Security.Cookies.dll
+c:\users\conner bell\documents\visual studio 2015\Projects\EC2 Management Tool\EC2 Management Tool\bin\Microsoft.Owin.Security.dll
+c:\users\conner bell\documents\visual studio 2015\Projects\EC2 Management Tool\EC2 Management Tool\bin\Microsoft.Owin.Security.Facebook.dll
+c:\users\conner bell\documents\visual studio 2015\Projects\EC2 Management Tool\EC2 Management Tool\bin\Microsoft.Owin.Security.Google.dll
+c:\users\conner bell\documents\visual studio 2015\Projects\EC2 Management Tool\EC2 Management Tool\bin\Microsoft.Owin.Security.MicrosoftAccount.dll
+c:\users\conner bell\documents\visual studio 2015\Projects\EC2 Management Tool\EC2 Management Tool\bin\Microsoft.Owin.Security.OAuth.dll
+c:\users\conner bell\documents\visual studio 2015\Projects\EC2 Management Tool\EC2 Management Tool\bin\Microsoft.Owin.Security.Twitter.dll
+c:\users\conner bell\documents\visual studio 2015\Projects\EC2 Management Tool\EC2 Management Tool\bin\Microsoft.Web.Infrastructure.dll
+c:\users\conner bell\documents\visual studio 2015\Projects\EC2 Management Tool\EC2 Management Tool\bin\Newtonsoft.Json.dll
+c:\users\conner bell\documents\visual studio 2015\Projects\EC2 Management Tool\EC2 Management Tool\bin\Owin.dll
+c:\users\conner bell\documents\visual studio 2015\Projects\EC2 Management Tool\EC2 Management Tool\bin\System.Web.Helpers.dll
+c:\users\conner bell\documents\visual studio 2015\Projects\EC2 Management Tool\EC2 Management Tool\bin\System.Web.Mvc.dll
+c:\users\conner bell\documents\visual studio 2015\Projects\EC2 Management Tool\EC2 Management Tool\bin\System.Web.Optimization.dll
+c:\users\conner bell\documents\visual studio 2015\Projects\EC2 Management Tool\EC2 Management Tool\bin\System.Web.Razor.dll
+c:\users\conner bell\documents\visual studio 2015\Projects\EC2 Management Tool\EC2 Management Tool\bin\System.Web.WebPages.Deployment.dll
+c:\users\conner bell\documents\visual studio 2015\Projects\EC2 Management Tool\EC2 Management Tool\bin\System.Web.WebPages.dll
+c:\users\conner bell\documents\visual studio 2015\Projects\EC2 Management Tool\EC2 Management Tool\bin\System.Web.WebPages.Razor.dll
+c:\users\conner bell\documents\visual studio 2015\Projects\EC2 Management Tool\EC2 Management Tool\bin\WebGrease.dll
+c:\users\conner bell\documents\visual studio 2015\Projects\EC2 Management Tool\EC2 Management Tool\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+c:\users\conner bell\documents\visual studio 2015\Projects\EC2 Management Tool\EC2 Management Tool\bin\System.Web.Helpers.xml
+c:\users\conner bell\documents\visual studio 2015\Projects\EC2 Management Tool\EC2 Management Tool\bin\System.Web.Mvc.xml
+c:\users\conner bell\documents\visual studio 2015\Projects\EC2 Management Tool\EC2 Management Tool\bin\System.Web.Optimization.xml
+c:\users\conner bell\documents\visual studio 2015\Projects\EC2 Management Tool\EC2 Management Tool\bin\System.Web.Razor.xml
+c:\users\conner bell\documents\visual studio 2015\Projects\EC2 Management Tool\EC2 Management Tool\bin\System.Web.WebPages.xml
+c:\users\conner bell\documents\visual studio 2015\Projects\EC2 Management Tool\EC2 Management Tool\bin\System.Web.WebPages.Deployment.xml
+c:\users\conner bell\documents\visual studio 2015\Projects\EC2 Management Tool\EC2 Management Tool\bin\System.Web.WebPages.Razor.xml
+c:\users\conner bell\documents\visual studio 2015\Projects\EC2 Management Tool\EC2 Management Tool\bin\Antlr3.Runtime.pdb
+c:\users\conner bell\documents\visual studio 2015\Projects\EC2 Management Tool\EC2 Management Tool\bin\Newtonsoft.Json.xml
+c:\users\conner bell\documents\visual studio 2015\Projects\EC2 Management Tool\EC2 Management Tool\bin\EntityFramework.xml
+c:\users\conner bell\documents\visual studio 2015\Projects\EC2 Management Tool\EC2 Management Tool\bin\EntityFramework.SqlServer.xml
+c:\users\conner bell\documents\visual studio 2015\Projects\EC2 Management Tool\EC2 Management Tool\bin\Microsoft.AspNet.Identity.Core.xml
+c:\users\conner bell\documents\visual studio 2015\Projects\EC2 Management Tool\EC2 Management Tool\bin\Microsoft.AspNet.Identity.Owin.xml
+c:\users\conner bell\documents\visual studio 2015\Projects\EC2 Management Tool\EC2 Management Tool\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+c:\users\conner bell\documents\visual studio 2015\Projects\EC2 Management Tool\EC2 Management Tool\bin\Microsoft.Owin.xml
+c:\users\conner bell\documents\visual studio 2015\Projects\EC2 Management Tool\EC2 Management Tool\bin\Microsoft.Owin.Host.SystemWeb.xml
+c:\users\conner bell\documents\visual studio 2015\Projects\EC2 Management Tool\EC2 Management Tool\bin\Microsoft.Owin.Security.xml
+c:\users\conner bell\documents\visual studio 2015\Projects\EC2 Management Tool\EC2 Management Tool\bin\Microsoft.Owin.Security.Facebook.xml
+c:\users\conner bell\documents\visual studio 2015\Projects\EC2 Management Tool\EC2 Management Tool\bin\Microsoft.Owin.Security.Cookies.xml
+c:\users\conner bell\documents\visual studio 2015\Projects\EC2 Management Tool\EC2 Management Tool\bin\Microsoft.Owin.Security.OAuth.xml
+c:\users\conner bell\documents\visual studio 2015\Projects\EC2 Management Tool\EC2 Management Tool\bin\Microsoft.Owin.Security.Google.xml
+c:\users\conner bell\documents\visual studio 2015\Projects\EC2 Management Tool\EC2 Management Tool\bin\Microsoft.Owin.Security.Twitter.xml
+c:\users\conner bell\documents\visual studio 2015\Projects\EC2 Management Tool\EC2 Management Tool\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
+c:\users\conner bell\documents\visual studio 2015\Projects\EC2 Management Tool\EC2 Management Tool\obj\Debug\EC2 Management Tool.csprojResolveAssemblyReference.cache
+c:\users\conner bell\documents\visual studio 2015\Projects\EC2 Management Tool\EC2 Management Tool\obj\Debug\EC2 Management Tool.dll
+c:\users\conner bell\documents\visual studio 2015\Projects\EC2 Management Tool\EC2 Management Tool\obj\Debug\EC2 Management Tool.pdb
+C:\Users\Conner Bell\documents\visual studio 2015\Projects\EC2 Management Tool\EC2 Management Tool\bin\AWSSDK.dll
+C:\Users\Conner Bell\documents\visual studio 2015\Projects\EC2 Management Tool\EC2 Management Tool\bin\AWSSDK.pdb
