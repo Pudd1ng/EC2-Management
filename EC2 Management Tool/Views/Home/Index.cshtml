@@ -1,4 +1,25 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
-<input type="button" value="Create Instance" onclick="location.href='@Url.Action("Create", "HomeController")'" />
+<script type="text/javascript" charset="utf8" src="//code.jquery.com/jquery-1.10.2.js"></script>
+<link rel="stylesheet" type="text/css" href="/DataTables/datatables.min.css" />
+<script type="text/javascript" src="/DataTables/datatables.min.js"></script>
+
+<h2>EC2</h2>
+
+<table id="table" class="table table-bordred table-striped">
+    <thead>
+        <tr>
+            <th>Server ID</th>
+            <th>Description</th>
+            <th>Instance ID</th>
+            <th>Instance Type</th>
+            <th>State</th>
+            <th>Schedule</th>
+</table>
+
+<script type="text/javascript">
+    $('#table').DataTable();
+</script>
+
+<input type="button" value="Create Instance" onclick="location.href='@Url.Action("CreateGroup", "HomeController")'" />

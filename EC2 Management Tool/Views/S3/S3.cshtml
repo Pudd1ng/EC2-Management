@@ -1,0 +1,23 @@
+﻿@{
+    ViewBag.Title = "S3";
+}
+<script type="text/javascript" charset="utf8" src="//code.jquery.com/jquery-1.10.2.js"></script>
+<link rel="stylesheet" type="text/css" href="/DataTables/datatables.min.css" />
+<script type="text/javascript" src="/DataTables/datatables.min.js"></script>
+
+<h2>S3</h2>
+
+<table id="table" class="table table-bordred table-striped">
+    <thead>
+        <tr>
+            <th>Volume ID</th>
+            <th>Size</th>
+            <th>Volume Type</th>
+            <th>State</th>
+</table>
+
+<script type="text/javascript">
+    $('#table').DataTable();
+</script>
+
+<input type="button" value="Create Volume" onclick="location.href='@Url.Action("Create", "SecurityGroupsController")'" />

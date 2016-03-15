@@ -27,6 +27,16 @@ namespace EC2_Management_Tool.Controllers
             return View();
         }
 
+        public ActionResult S3()
+        {
+            return View();
+        }
+
+        public ActionResult SecurityGroups()
+        {
+            return View();
+        }
+
         public ActionResult CreateInstance()
         {
             return null;
