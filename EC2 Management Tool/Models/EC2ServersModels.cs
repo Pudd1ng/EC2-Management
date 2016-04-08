@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Amazon.EC2;
+using Amazon.EC2.Model;
 
 namespace EC2_Management_Tool.Models
 {
@@ -28,6 +29,13 @@ namespace EC2_Management_Tool.Models
         public void stopInstance()
         {
 
+        }
+
+        public object getInstances()
+        {
+            var allEC2Requests = new DescribeInstancesRequest();
+            var allEC2Response = client.DescribeInstances(allEC2Requests);
+            return allEC2Response;
         }
 
     }

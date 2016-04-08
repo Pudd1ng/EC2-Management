@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Dynamic;
 using System.Web;
 using System.Web.Mvc;
+using EC2_Management_Tool.Models;
 
 namespace EC2_Management_Tool.Controllers
 {
@@ -11,7 +13,11 @@ namespace EC2_Management_Tool.Controllers
         // GET: SecurityGroup
         public ActionResult SecurityGroups()
         {
-            return View();
+            dynamic model = new ExpandoObject();
+            SecurityGroupModel sgm = new SecurityGroupModel();
+            var awsGroups = sgm.GetGroups();
+            model.group = awsGroups;
+            return View(model);
         }
         
         public ActionResult CreateGroup(string groupName, string groupDescription)

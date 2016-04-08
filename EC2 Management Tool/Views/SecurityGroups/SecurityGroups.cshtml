@@ -1,11 +1,20 @@
-﻿@{
+﻿@model dynamic
+
+@{
     ViewBag.Title = "SecurityGroups";
 }
 <script type="text/javascript" charset="utf8" src="//code.jquery.com/jquery-1.10.2.js"></script>
-<link rel="stylesheet" type="text/css" href="/DataTables/datatables.min.css" />
-<script type="text/javascript" src="/DataTables/datatables.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/DataTables/datatables.css" />
+<script type="text/javascript" src="/DataTables/datatables.js"></script>
 
 <h2>SecurityGroups</h2>
+
+<div class="tabbable tabs-left">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="#create" data-toggle="modalcreate">Create group</a></li>
+        <li><a href="#delete" data-toggle="modaldelete">Delete group</a></li>
+    </ul>
+</div>
 
 <table id="table" class="table table-bordred table-striped">
     <thead>
@@ -13,12 +22,53 @@
             <th>Group ID</th>
             <th>Group Name</th>
             <th>VPC ID</th>
+        </tr>
+     </thead>
+     <tbody>
+         @foreach (var group in Model.group)
+         {
+         <tr>
+         <td>@group.GroupId</td>
+         <td>@group.GroupName</td>
+         <td>@group.VpcId</td>
+         </tr>
+         }
+     </tbody>
 </table>
 
 <script type="text/javascript">
     $('#table').DataTable();
 </script>
 
-<input type="button" value="Create Security Group" onclick="location.href='@Url.Action("Create", "SecurityGroupsController")'" />
+<div class="container">
+    <div class="modal fade" id="modalcreate" tabindex="-1" role="dialog" aria-labelledby="createSchedule" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                    <h4 class="modal-title text-center">Create a New Group</h4>
+                </div>
+
+                <div class="modal-body" style="text-align: center">
+                    <div class="row">
+                        <div class="modal-body" style="text-align: center">
+                            <form action="/home/addschedule/" method="POST">
+                                <div class="form-group">
+                                    <input name="scheduleName" class="form-control text-center" type="text" placeholder="ScheduleName" style="margin: 0 auto">
+                                </div>
+                                <label>Running Hours:</label>
+                                <div class="form-horizontal">
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-success btn-lg" style="width: 100%;"><span class="glyphicon glyphicon-ok-sign"></span> Create</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 

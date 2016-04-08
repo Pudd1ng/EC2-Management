@@ -1,4 +1,6 @@
-﻿@{
+﻿@model dynamic
+
+@{
     ViewBag.Title = "Home Page";
 }
 <script type="text/javascript" charset="utf8" src="//code.jquery.com/jquery-1.10.2.js"></script>
@@ -7,19 +9,41 @@
 
 <h2>EC2</h2>
 
-<table id="table" class="table table-bordred table-striped">
+
+<div class="tabbable tabs-left">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="#create" data-toggle="tab">Create Instance</a></li>
+        <li><a href="#stop" data-toggle="tab">Stop Instance</a></li>
+        <li><a href="#start" data-toggle="tab">Start Instance</a></li>
+        <li><a href="#schedule" data-toggle="tab">Schedule Instance</a></li>
+        <li><a href="#compare" data-toggle="tab">Compare Instance</a></li>
+    </ul>
+</div>
+
+<table id="table1" class="table table-bordred table-striped">
     <thead>
         <tr>
-            <th>Server ID</th>
-            <th>Description</th>
+            <th>Instance Name</th>
             <th>Instance ID</th>
+            <th>Launch Time</th>
             <th>Instance Type</th>
             <th>State</th>
             <th>Schedule</th>
+    </thead>
+    <tbody>
+        @foreach (var instances in Model.instances.Reservations[0].Instances)
+        {
+            <tr>
+                <td>@instances.Tags[0].Value</td>
+                <td>@instances.InstanceId</td>
+                <td>@instances.LaunchTime</td>
+                <td>@instances.InstanceType</td>
+                <td>@instances.State.Name</td>
+            </tr>
+        }
+    </tbody>
 </table>
 
 <script type="text/javascript">
-    $('#table').DataTable();
+    $('#table1').DataTable();
 </script>
-
-<input type="button" value="Create Instance" onclick="location.href='@Url.Action("CreateGroup", "HomeController")'" />

@@ -1,4 +1,6 @@
-﻿@{
+﻿@model dynamic
+
+@{
     ViewBag.Title = "S3";
 }
 <script type="text/javascript" charset="utf8" src="//code.jquery.com/jquery-1.10.2.js"></script>
@@ -7,17 +9,39 @@
 
 <h2>S3</h2>
 
-<table id="table" class="table table-bordred table-striped">
+<div class="tabbable tabs-left">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="#create" data-toggle="tab">Create Volume</a></li>
+        <li><a href="#stop" data-toggle="tab">Attach Volume</a></li>
+        <li><a href="#start" data-toggle="tab">Delete Volume</a></li>
+    </ul>
+</div>
+
+<table id="table2" class="table table-bordred table-striped">
     <thead>
         <tr>
             <th>Volume ID</th>
+            <th>InstanceAttached<th>
             <th>Size</th>
             <th>Volume Type</th>
             <th>State</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var volume in Model.volumes.Volumes)
+        {
+            <tr>
+                <td>@volume.VolumeId</td>
+                <td>@volume.Attachments[0].InstanceId<td>
+                <td>@volume.Size</td>
+                <td>@volume.VolumeType</td>
+                <td>@volume.State</td>
+            </tr>
+        }
+    </tbody>
+
 </table>
 
 <script type="text/javascript">
-    $('#table').DataTable();
+    $('#table2').DataTable();
 </script>
-
-<input type="button" value="Create Volume" onclick="location.href='@Url.Action("Create", "SecurityGroupsController")'" />

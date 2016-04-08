@@ -40,5 +40,13 @@ namespace EC2_Management_Tool.Models
             ingressRequest.GroupId = mySG.GroupId;
             ingressRequest.IpPermissions.Add(ipPermission);
         }
+
+        public object GetGroups()
+        {
+            var allSgRequest = new DescribeSecurityGroupsRequest();
+            var allSgResponse = client.DescribeSecurityGroups(allSgRequest);
+            var allSgGroups = allSgResponse.SecurityGroups;
+            return allSgGroups;
+        }
     }
 }
