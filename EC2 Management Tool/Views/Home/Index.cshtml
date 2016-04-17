@@ -9,15 +9,13 @@
 
 <h2>EC2</h2>
 
-
-<div class="tabbable tabs-left">
-    <ul class="nav nav-tabs">
-        <li class="active"><a href="#create" data-toggle="tab">Create Instance</a></li>
-        <li><a href="#stop" data-toggle="tab">Stop Instance</a></li>
-        <li><a href="#start" data-toggle="tab">Start Instance</a></li>
-        <li><a href="#schedule" data-toggle="tab">Schedule Instance</a></li>
-        <li><a href="#compare" data-toggle="tab">Compare Instance</a></li>
-    </ul>
+<div class="btn-group" role="group" aria-label="...">
+    <button type="button" class="btn btn-default" data-target="#modalcreate" data-toggle="modal">Create Instance</button>
+    <button type="button" class="btn btn-default" data-target="#modaldelete" data-toggle="modal">Delete Instance</button>
+    <button type="button" class="btn btn-default" data-target="#modaldelete" data-toggle="modal">Start Instance</button>
+    <button type="button" class="btn btn-default" data-target="#modaldelete" data-toggle="modal">Stop Instance</button>
+    <button type="button" class="btn btn-default" data-target="#modaldelete" data-toggle="modal">Schedule Instance</button>
+    <b></b>
 </div>
 
 <table id="table1" class="table table-bordred table-striped">
@@ -47,3 +45,52 @@
 <script type="text/javascript">
     $('#table1').DataTable();
 </script>
+
+<div class="container">
+    <div class="modal fade" id="modalcreate" tabindex="-1" role="dialog" aria-labelledby="createGroup" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                    <h4 class="modal-title text-center">Create a New Instance</h4>
+                </div>
+
+                <div class="modal-body" style="text-align: center">
+                    <div class="row">
+                        <div class="modal-body" style="text-align: center">
+                            <form action="/Home/CreateInstance/" method="POST">
+                                <div class="form-group">
+                                    <label for="amiId">AMI ID:</label>
+                                    <select class="form-control text-center" id="amiId" style="margin: 0 auto">
+                                        <option>ami-8519a9f6</option>
+                                        <option>ami-8b8c57f8</option>
+                                    </select>
+                                    <label for="keyPairName">Key Pair Name:</label>
+                                    <input name="keyPairName" class="form-control text-center" type="text" placeholder="Conners Key" style="margin: 0 auto">
+                                    <label for="instanceType">InstanceType:</label>
+                                    <select class="form-control text-center" id="instanceType" style="margin: 0 auto">
+                                        <option>InstanceType.T1Micro</option>
+                                    </select>
+                                    <label for="minCount">Minimum Instance Number:</label>
+                                    <input name="minCount" class="form-control text-center" type="text" placeholder="1" style="margin: 0 auto">
+                                    <label for="maxCount">Maximum Instance Number:</label>
+                                    <input name="maxCount" class="form-control text-center" type="text" placeholder="1" style="margin: 0 auto">
+                                    <label for="groups">Security Groups Attached:</label>
+                                    <select class="form-control text-center" id="groups" style="margin: 0 auto">
+                                        @foreach (var groups in Model.groups)
+                                        {
+                                        <option>@groups.GroupName</option>
+                                        }
+                                    </select>            
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-success btn-lg" style="width: 100%;"><span class="glyphicon glyphicon-ok-sign"></span> Create</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

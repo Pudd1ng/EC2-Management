@@ -14,9 +14,20 @@ namespace EC2_Management_Tool.Controllers
         {
             dynamic model = new ExpandoObject();
             EC2ServersModels ec2m = new EC2ServersModels();
+            SecurityGroupModel sgm = new SecurityGroupModel();
+            var groups = sgm.GetGroups();
             var instances = ec2m.getInstances();
             model.instances = instances;
+            model.groups = groups;
             return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult CreateInstance(string amiId, string keyPairName, string instanceType, int minCount, int maxCount, string group)
+        {
+            EC2ServersModels ec2m = new EC2ServersModels();
+            ec2m.CreateInstance(amiId, keyPairName, instanceType, minCount, maxCount, group);
+            return RedirectToAction("Index");
         }
 
         public ActionResult About()

@@ -41,6 +41,15 @@ namespace EC2_Management_Tool.Models
             ingressRequest.IpPermissions.Add(ipPermission);
         }
 
+        public void DeleteGroup(string groupName)
+        {
+            var deleteSgRequest = new DeleteSecurityGroupRequest()
+            {
+                GroupName = groupName
+            };
+            var deleteSgResponse = client.DeleteSecurityGroup(deleteSgRequest);
+        }
+
         public object GetGroups()
         {
             var allSgRequest = new DescribeSecurityGroupsRequest();

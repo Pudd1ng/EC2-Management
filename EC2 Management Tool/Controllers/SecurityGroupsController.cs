@@ -20,9 +20,20 @@ namespace EC2_Management_Tool.Controllers
             return View(model);
         }
         
-        public ActionResult CreateGroup(string groupName, string groupDescription)
+        [HttpPost]
+        public ActionResult CreateGroup(string groupName, string groupDescription, string ipRange, string protocol, int fromPort, int toPort)
         {
-            return View();
+            SecurityGroupModel sgm = new SecurityGroupModel();
+            sgm.CreateGroup(groupName, groupDescription, ipRange, protocol, fromPort, toPort);
+            return RedirectToAction("SecurityGroups");
+        }
+
+        [HttpPost]
+        public ActionResult DeleteGroup(string groupName)
+        {
+            SecurityGroupModel sgm = new SecurityGroupModel();
+            sgm.DeleteGroup(groupName);
+            return RedirectToAction("SecurityGroups");
         }
     }
 }
