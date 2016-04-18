@@ -11,7 +11,7 @@ namespace EC2_Management_Tool.Models
     {
         public AmazonEC2Client client = new AmazonEC2Client();
 
-        public void CreateInstance(string amiId, string keyPairName, string instanceType, int minCount, int maxCount, string group)
+        public void CreateInstance(string amiId, string keyPairName,string instanceName, string instanceType, int minCount, int maxCount, string group)
         {
             //set the blank id
             string groupId = "";
@@ -33,33 +33,49 @@ namespace EC2_Management_Tool.Models
             {
                 groupId
             };
-            //setup the request
-            var launchRequest = new RunInstancesRequest()
+            //setup the request. As the InstanceType class cannot be passed from a view you need to create a seperate request for future types.
+            if (instanceType == "T2Micro")
             {
-                ImageId = amiId,
-                InstanceType = instanceType,
-                MinCount = minCount,
-                MaxCount = maxCount,
-                KeyName = keyPairName,
-                SecurityGroupIds = groupsList
-            };
-            //launch the instances
-            var launchresponse = client.RunInstances(launchRequest);
+                var launchRequest = new RunInstancesRequest()
+                {
+                    ImageId = amiId,
+                    InstanceType = InstanceType.T2Micro,
+                    MinCount = minCount,
+                    MaxCount = maxCount,
+                    KeyName = keyPairName,
+                    SecurityGroupIds = groupsList
+                };
+                //launch the instances
+                var launchresponse = client.RunInstances(launchRequest);
+                //set the instance in a variable
+                var myInstance = launchresponse.Reservation.Instances[0].InstanceId;
+                //set up the naming request
+                var tagRequest = new CreateTagsRequest();
+                tagRequest.Resources.Add(myInstance);
+                tagRequest.Tags.Add(new Tag {Key = "Name", Value = instanceName });
+                client.CreateTags(tagRequest);
+            }
         }
 
-        public void deleteInstance()
+        public void DeleteInstance(string instanceId)
         {
-
+            var deleteRequest = new TerminateInstancesRequest();
+            deleteRequest.InstanceIds = new List<string>() { instanceId };
+            var deleteResponse = client.TerminateInstances(deleteRequest);
         }
 
-        public void startInstance()
+        public void StartInstance(string instanceId)
         {
-
+            var startRequest = new StartInstancesRequest();
+            startRequest.InstanceIds = new List<string> { instanceId };
+            var startResponse = client.StartInstances(startRequest);
         }
 
-        public void stopInstance()
+        public void StopInstance(string instanceId)
         {
-
+            var stopRequest = new StopInstancesRequest();
+            stopRequest.InstanceIds = new List<string> { instanceId };
+            var stopReponse = client.StopInstances(stopRequest);
         }
 
         public object getInstances()

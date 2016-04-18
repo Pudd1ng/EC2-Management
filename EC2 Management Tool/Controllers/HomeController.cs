@@ -23,10 +23,34 @@ namespace EC2_Management_Tool.Controllers
         }
 
         [HttpPost]
-        public ActionResult CreateInstance(string amiId, string keyPairName, string instanceType, int minCount, int maxCount, string group)
+        public ActionResult CreateInstance(string amiId,string instanceName, string keyPairName, string instanceType, int minCount, int maxCount, string group)
         {
             EC2ServersModels ec2m = new EC2ServersModels();
-            ec2m.CreateInstance(amiId, keyPairName, instanceType, minCount, maxCount, group);
+            ec2m.CreateInstance(amiId, keyPairName,instanceName, instanceType, minCount, maxCount, group);
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public ActionResult DeleteInstance(string instanceId)
+        {
+            EC2ServersModels ec2m = new EC2ServersModels();
+            ec2m.DeleteInstance(instanceId);
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public ActionResult StartInstance(string instanceId)
+        {
+            EC2ServersModels ec2m = new EC2ServersModels();
+            ec2m.StartInstance(instanceId);
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public ActionResult StopInstance(string instanceId)
+        {
+            EC2ServersModels ec2m = new EC2ServersModels();
+            ec2m.StopInstance(instanceId);
             return RedirectToAction("Index");
         }
 
@@ -44,19 +68,5 @@ namespace EC2_Management_Tool.Controllers
             return View();
         }
 
-        public ActionResult S3()
-        {
-            return View();
-        }
-
-        public ActionResult SecurityGroups()
-        {
-            return View();
-        }
-
-        public ActionResult CreateInstance()
-        {
-            return null;
-        }
     }
 }

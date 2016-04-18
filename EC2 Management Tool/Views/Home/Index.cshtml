@@ -9,13 +9,12 @@
 
 <h2>EC2</h2>
 
-<div class="btn-group" role="group" aria-label="...">
+<div class="btn-group" role="group">
     <button type="button" class="btn btn-default" data-target="#modalcreate" data-toggle="modal">Create Instance</button>
     <button type="button" class="btn btn-default" data-target="#modaldelete" data-toggle="modal">Delete Instance</button>
-    <button type="button" class="btn btn-default" data-target="#modaldelete" data-toggle="modal">Start Instance</button>
-    <button type="button" class="btn btn-default" data-target="#modaldelete" data-toggle="modal">Stop Instance</button>
+    <button type="button" class="btn btn-default" data-target="#modalstart" data-toggle="modal">Start Instance</button>
+    <button type="button" class="btn btn-default" data-target="#modalstop" data-toggle="modal">Stop Instance</button>
     <button type="button" class="btn btn-default" data-target="#modaldelete" data-toggle="modal">Schedule Instance</button>
-    <b></b>
 </div>
 
 <table id="table1" class="table table-bordred table-striped">
@@ -26,18 +25,34 @@
             <th>Launch Time</th>
             <th>Instance Type</th>
             <th>State</th>
+            <th>Public Ip</th>
             <th>Schedule</th>
     </thead>
+    @{int totalcount = Model.instances.Reservations.Count;}
     <tbody>
-        @foreach (var instances in Model.instances.Reservations[0].Instances)
+        @for (var i=0; i <= totalcount - 1; i++)
         {
+            foreach (var instances in Model.instances.Reservations[i].Instances)
+            {
             <tr>
-                <td>@instances.Tags[0].Value</td>
+                @* if an instance gets terminated and has no name it will show up as blank and stop the describe call from breaking *@
+                @if (instances.Tags.Count > 0)
+                {
+                <td>
+                    @instances.Tags[0].Value
+                </td>
+                }
+                else
+                {
+                    <td></td>
+                }
                 <td>@instances.InstanceId</td>
                 <td>@instances.LaunchTime</td>
                 <td>@instances.InstanceType</td>
-                <td>@instances.State.Name</td>
+                <td>@instances.State.Name</td>f
+                <td>@instances.PublicIpAddress</td>
             </tr>
+            }
         }
     </tbody>
 </table>
@@ -61,22 +76,24 @@
                             <form action="/Home/CreateInstance/" method="POST">
                                 <div class="form-group">
                                     <label for="amiId">AMI ID:</label>
-                                    <select class="form-control text-center" id="amiId" style="margin: 0 auto">
+                                    <select class="form-control text-center" name="amiId" id="amiId" style="margin: 0 auto">
                                         <option>ami-8519a9f6</option>
                                         <option>ami-8b8c57f8</option>
                                     </select>
+                                    <label for="instanceName">Instance Name:</label>
+                                    <input name="instanceName" class="form-control text-center" type="text" placeholder="WebServer01" style="margin: 0 auto">
                                     <label for="keyPairName">Key Pair Name:</label>
                                     <input name="keyPairName" class="form-control text-center" type="text" placeholder="Conners Key" style="margin: 0 auto">
                                     <label for="instanceType">InstanceType:</label>
-                                    <select class="form-control text-center" id="instanceType" style="margin: 0 auto">
-                                        <option>InstanceType.T1Micro</option>
+                                    <select class="form-control text-center" name="instanceType" id="instanceType" style="margin: 0 auto">
+                                        <option>T2Micro</option>
                                     </select>
                                     <label for="minCount">Minimum Instance Number:</label>
                                     <input name="minCount" class="form-control text-center" type="text" placeholder="1" style="margin: 0 auto">
                                     <label for="maxCount">Maximum Instance Number:</label>
                                     <input name="maxCount" class="form-control text-center" type="text" placeholder="1" style="margin: 0 auto">
                                     <label for="groups">Security Groups Attached:</label>
-                                    <select class="form-control text-center" id="groups" style="margin: 0 auto">
+                                    <select class="form-control text-center" name="group" id="groups" style="margin: 0 auto">
                                         @foreach (var groups in Model.groups)
                                         {
                                         <option>@groups.GroupName</option>
@@ -85,6 +102,117 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="submit" class="btn btn-success btn-lg" style="width: 100%;"><span class="glyphicon glyphicon-ok-sign"></span> Create</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="modal fade" id="modaldelete" tabindex="-1" role="dialog" aria-labelledby="deleteInstance" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                    <h4 class="modal-title text-center">Delete a instance</h4>
+                </div>
+
+                <div class="modal-body" style="text-align: center">
+                    <div class="row">
+                        <div class="modal-body" style="text-align: center">
+                            <form action="/Home/DeleteInstance/" method="POST">
+                                <div class="form-group">
+                                    <p>Be sure to double check your Id before deletion</p>
+                                    <label for="instanceId">InstanceId:</label>
+                                    <select class="form-control text-center" name="instanceId" id="groups" style="margin: 0 auto">
+                                        @for (var i = 0; i <= totalcount - 1; i++)
+                                        {
+                                            foreach (var instances in Model.instances.Reservations[i].Instances)
+                                            {
+                                            <option>@instances.InstanceId</option>
+                                            }
+                                        }
+                                    </select>           
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-danger btn-lg" style="width: 100%;"><span class="glyphicon glyphicon-ok-sign"></span> Delete</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="modal fade" id="modalstart" tabindex="-1" role="dialog" aria-labelledby="startInstance" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                    <h4 class="modal-title text-center">Start a instance</h4>
+                </div>
+
+                <div class="modal-body" style="text-align: center">
+                    <div class="row">
+                        <div class="modal-body" style="text-align: center">
+                            <form action="/Home/StartInstance/" method="POST">
+                                <div class="form-group">
+                                    <p>Be sure to double check your Id before booting</p>
+                                    <label for="instanceId">InstanceId:</label>
+                                    <select class="form-control text-center" name="instanceId" id="groups" style="margin: 0 auto">
+                                        @for (var i = 0; i <= totalcount - 1; i++)
+                                        {
+                                            foreach (var instances in Model.instances.Reservations[i].Instances)
+                                            {
+                                                <option>@instances.InstanceId</option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-success btn-lg" style="width: 100%;"><span class="glyphicon glyphicon-ok-sign"></span> Start</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="modal fade" id="modalstop" tabindex="-1" role="dialog" aria-labelledby="stopInstance" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                    <h4 class="modal-title text-center">Stop a instance</h4>
+                </div>
+
+                <div class="modal-body" style="text-align: center">
+                    <div class="row">
+                        <div class="modal-body" style="text-align: center">
+                            <form action="/Home/StopInstance/" method="POST">
+                                <div class="form-group">
+                                    <p>Be sure to double check your Id before stopping</p>
+                                    <label for="instanceId">InstanceId:</label>
+                                    <select class="form-control text-center" name="instanceId" id="groups" style="margin: 0 auto">
+                                        @for (var i = 0; i <= totalcount - 1; i++)
+                                        {
+                                            foreach (var instances in Model.instances.Reservations[i].Instances)
+                                            {
+                                                <option>@instances.InstanceId</option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-warning btn-lg" style="width: 100%;"><span class="glyphicon glyphicon-ok-sign"></span> Stop</button>
                                 </div>
                             </form>
                         </div>
