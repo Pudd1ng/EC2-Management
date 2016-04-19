@@ -11,12 +11,12 @@
 
 <div class="btn-group" role="group" aria-label="...">
     <button type="button" class="btn btn-default" data-target="#modalcreate" data-toggle="modal">Create Volume</button>
-    <button type="button" class="btn btn-default" data-target="#modaldelete" data-toggle="modal">Attach Volume</button>
+    <button type="button" class="btn btn-default" data-target="#modalattach" data-toggle="modal">Attach Volume</button>
+    <button type="button" class="btn btn-default" data-target="#modaldetach" data-toggle="modal">Detach Volume</button>
     <button type="button" class="btn btn-default" data-target="#modaldelete" data-toggle="modal">Delete Volume</button>
-    <b></b>
 </div>
 
-<table id="table2" class="table table-bordred table-striped">
+<table id="table" class="table table-bordred table-striped">
     <thead>
         <tr>
             <th>Volume ID</th>
@@ -24,6 +24,7 @@
             <th>Size</th>
             <th>Volume Type</th>
             <th>State</th>
+            <th>Zone</th>
         </tr>
     </thead>
     <tbody>
@@ -31,16 +32,193 @@
         {
             <tr>
                 <td>@volume.VolumeId</td>
-                <td>@volume.Attachments[0].InstanceId<td>
+                @if (volume.Attachments.Count != 0)
+                {
+                <td>@volume.Attachments[0].InstanceId</td>
+                }
+                else
+                {
+                <td>No Attachment</td>
+                }
                 <td>@volume.Size</td>
                 <td>@volume.VolumeType</td>
                 <td>@volume.State</td>
+                <td>@volume.AvailabilityZone</td>
             </tr>
         }
     </tbody>
-
 </table>
 
 <script type="text/javascript">
-    $('#table2').DataTable();
+    $('#table').DataTable();
 </script>
+
+<div class="container">
+    <div class="modal fade" id="modalcreate" tabindex="-1" role="dialog" aria-labelledby="createGroup" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                    <h4 class="modal-title text-center">Create a New Instance</h4>
+                </div>
+
+                <div class="modal-body" style="text-align: center">
+                    <div class="row">
+                        <div class="modal-body" style="text-align: center">
+                            <form action="/S3/CreateVolume/" method="POST">
+                                <div class="form-group">
+                                    <p>When picking a zone ensure its the same as the instance you intend to use</p>
+                                    <label for="size">Size:</label>
+                                    <input name="size" class="form-control text-center" type="number" placeholder="1024" style="margin: 0 auto">
+                                    <label for="type">Volume Type:</label>
+                                    <select class="form-control text-center" name="type" id="type" style="margin: 0 auto">
+                                        <option>standard</option>
+                                        <option>i01</option>
+                                        <option>gp2</option>
+                                    </select>
+                                    <label for="zone">Availability Zone:</label>
+                                    <select class="form-control text-center" name="zone" id="zone" style="margin: 0 auto">
+                                        <option>eu-west-1a</option>
+                                        <option>eu-west-1c</option>
+                                        <option>eu-west-1b</option>
+                                    </select>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-success btn-lg" style="width: 100%;"><span class="glyphicon glyphicon-ok-sign"></span> Create</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="modal fade" id="modaldelete" tabindex="-1" role="dialog" aria-labelledby="deleteInstance" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                    <h4 class="modal-title text-center">Delete a volume</h4>
+                </div>
+
+                <div class="modal-body" style="text-align: center">
+                    <div class="row">
+                        <div class="modal-body" style="text-align: center">
+                            <form action="/S3/DeleteVolume/" method="POST">
+                                <div class="form-group">
+                                    <p>Be sure to double check your Id before deletion</p>
+                                    <label for="volumeId">VolumeId:</label>
+                                    <select class="form-control text-center" name="volumeId" id="freevols" style="margin: 0 auto">
+                                        @foreach (var volume in Model.freevolumes)
+                                        {
+                                            <option>@volume</option>
+                                        }
+                                    </select>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-danger btn-lg" style="width: 100%;"><span class="glyphicon glyphicon-ok-sign"></span> Delete</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="modal fade" id="modalattach" tabindex="-1" role="dialog" aria-labelledby="attachVolume" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                    <h4 class="modal-title text-center">Attach a volume</h4>
+                </div>
+                <div class="modal-body" style="text-align: center">
+                    <div class="row">
+                        <div class="modal-body" style="text-align: center">
+                            <form action="/S3/AttachVolume/" method="POST">
+                                <div class="form-group">
+                                    <p>Please double check the ids of your instance and volume</p>
+                                    <label for="instanceId">InstanceId:</label>
+                                    <select class="form-control text-center" name="instanceId" id="instances" style="margin: 0 auto">
+                                        @{int totalcount = Model.instances.Reservations.Count;}
+                                        @for (var i = 0; i <= totalcount - 1; i++)
+                                        {
+                                            foreach (var instances in Model.instances.Reservations[i].Instances)
+                                            {
+                                                <option>@instances.InstanceId</option>
+                                            }
+                                        }
+                                        </select>
+                                        <label for="type">Volume Id:</label>
+                                        <select class="form-control text-center" name="volumeId" id="freevols" style="margin: 0 auto">
+                                            @foreach (var volume in Model.freevolumes)
+                                            {
+                                                <option>@volume</option>
+                                            }
+                                        </select>
+                                    <label for="device">Device Name:</label>
+                                    <select class="form-control text-center" name="device" id="device" style="margin: 0 auto">
+                                        <option>/dev/sdh</option>
+                                        <option>/dev/sdj</option>
+                                        <option>/dev/sdb</option>
+                                    </select>
+                                    </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-success btn-lg" style="width: 100%;"><span class="glyphicon glyphicon-ok-sign"></span> Attach</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="modal fade" id="modalattach" tabindex="-1" role="dialog" aria-labelledby="attachVolume" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                    <h4 class="modal-title text-center">Attach a volume</h4>
+                </div>
+                <div class="modal-body" style="text-align: center">
+                    <div class="row">
+                        <div class="modal-body" style="text-align: center">
+                            <form action="/S3/AttachVolume/" method="POST">
+                                <div class="form-group">
+                                    <p>Please double check the ids of your instance and volume</p>
+                                    <label for="instanceId">InstanceId:</label>
+                                    <select class="form-control text-center" name="instanceId" id="instances" style="margin: 0 auto">
+                                        @for (var i = 0; i <= totalcount - 1; i++)
+                                        {
+                                            foreach (var instances in Model.instances.Reservations[i].Instances)
+                                            {
+                                                <option>@instances.InstanceId</option>
+                                            }
+                                        }
+                                    </select>
+                                    @html
+                                    <label for="type">Volume Id:</label>
+                                    <select class="form-control text-center" name="volumeId" id="volumeId" style="margin: 0 auto">
+                                        @foreach (var volume in pickedInstance.BlockDeviceMappings)
+                                        {
+                                            <option>@volume.DeviceName</option>
+                                        }
+                                    </select>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-danger btn-lg" style="width: 100%;"><span class="glyphicon glyphicon-ok-sign"></span> Detach</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

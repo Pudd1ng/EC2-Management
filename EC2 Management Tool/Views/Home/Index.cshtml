@@ -26,7 +26,9 @@
             <th>Instance Type</th>
             <th>State</th>
             <th>Public Ip</th>
+            <th>Zone</th>
             <th>Schedule</th>
+        </tr>
     </thead>
     @{int totalcount = Model.instances.Reservations.Count;}
     <tbody>
@@ -44,13 +46,15 @@
                 }
                 else
                 {
-                    <td></td>
+                    <td>No Name</td>
                 }
                 <td>@instances.InstanceId</td>
                 <td>@instances.LaunchTime</td>
                 <td>@instances.InstanceType</td>
                 <td>@instances.State.Name</td>f
                 <td>@instances.PublicIpAddress</td>
+                <td>@instances.Placement.AvailabilityZone</td>
+                <td>todo</td>
             </tr>
             }
         }
@@ -89,9 +93,9 @@
                                         <option>T2Micro</option>
                                     </select>
                                     <label for="minCount">Minimum Instance Number:</label>
-                                    <input name="minCount" class="form-control text-center" type="text" placeholder="1" style="margin: 0 auto">
+                                    <input name="minCount" class="form-control text-center" type="number" placeholder="1" style="margin: 0 auto">
                                     <label for="maxCount">Maximum Instance Number:</label>
-                                    <input name="maxCount" class="form-control text-center" type="text" placeholder="1" style="margin: 0 auto">
+                                    <input name="maxCount" class="form-control text-center" type="number" placeholder="1" style="margin: 0 auto">
                                     <label for="groups">Security Groups Attached:</label>
                                     <select class="form-control text-center" name="group" id="groups" style="margin: 0 auto">
                                         @foreach (var groups in Model.groups)
