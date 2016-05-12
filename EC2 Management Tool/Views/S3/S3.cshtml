@@ -20,7 +20,7 @@
     <thead>
         <tr>
             <th>Volume ID</th>
-            <th>InstanceAttached<th>
+            <th>InstanceAttached</th>
             <th>Size</th>
             <th>Volume Type</th>
             <th>State</th>
@@ -202,13 +202,8 @@
                                             }
                                         }
                                     </select>
-                                    @html
                                     <label for="type">Volume Id:</label>
                                     <select class="form-control text-center" name="volumeId" id="volumeId" style="margin: 0 auto">
-                                        @foreach (var volume in pickedInstance.BlockDeviceMappings)
-                                        {
-                                            <option>@volume.DeviceName</option>
-                                        }
                                     </select>
                                 </div>
                                 <div class="modal-footer">
