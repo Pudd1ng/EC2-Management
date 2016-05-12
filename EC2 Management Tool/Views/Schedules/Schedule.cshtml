@@ -1,0 +1,97 @@
+﻿@model dynamic
+
+@{
+    ViewBag.Title = "Schedules";
+}
+<script type="text/javascript" charset="utf8" src="//code.jquery.com/jquery-1.10.2.js"></script>
+<link rel="stylesheet" type="text/css" href="/DataTables/datatables.css" />
+<script type="text/javascript" src="/DataTables/datatables.js"></script>
+
+<h2>SecurityGroups</h2>
+
+<div class="btn-group" role="group" aria-label="...">
+    <button type="button" class="btn btn-default" data-target="#modalcreate" data-toggle="modal">Create Group</button>
+    <button type="button" class="btn btn-default" data-target="#modaldelete" data-toggle="modal">Delete Group</button>
+    <b></b>
+</div>
+
+<table id="table" class="table table-bordred table-striped">
+    <thead>
+        <tr>
+            <th>Schedule Name</th>
+            <th>Schedule ID</th>
+            <th>Schedule Day</th>
+            <th>Schedule Hour</th>
+        </tr>
+     </thead>
+     <tbody>
+         @*Loop through db here*@
+     </tbody>
+</table>
+
+<script type="text/javascript">
+    $('#table').DataTable();
+</script>
+
+<div class="container">
+    <div class="modal fade" id="modalcreate" tabindex="-1" role="dialog" aria-labelledby="createGroup" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                    <h4 class="modal-title text-center">Create a New Schedule</h4>
+                </div>
+
+                <div class="modal-body" style="text-align: center">
+                    <div class="row">
+                        <div class="modal-body" style="text-align: center">
+                            <form action="/Schedule/CreateSchedule/" method="POST">
+                                <div class="form-group">
+                                    <label for="scheduleName">Schedule Name:</label>
+                                    <input name="scheduleName" class="form-control text-center" type="text" placeholder="ScheduleName" style="margin: 0 auto">
+                                    <label for="scheduleDay">Schedule Day:</label>
+                                    <input name="scheduleDay" class="form-control text-center" type="text" placeholder="ScheduleDay" style="margin: 0 auto">
+                                    <label for="scheduleHour">Schedule Hour:</label>
+                                    <input name="scheduleHour" class="form-control text-center" type="text" placeholder="ScheduleHour" style="margin: 0 auto">
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-success btn-lg" style="width: 100%;"><span class="glyphicon glyphicon-ok-sign"></span> Create</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="modal fade" id="modaldelete" tabindex="-1" role="dialog" aria-labelledby="deleteSchedule" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                    <h4 class="modal-title text-center">Delete a Schedule</h4>
+                </div>
+
+                <div class="modal-body" style="text-align: center">
+                    <div class="row">
+                        <div class="modal-body" style="text-align: center">
+                            <form action="/Schedule/DeleteSchedule/" method="POST">
+                                <div class="form-group">
+                                    <label for="ScheduleName">Schedule Name:</label>
+                                    <input name="ScheduleName" class="form-control text-center" type="text" placeholder="ScheduleName" style="margin: 0 auto">
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-danger btn-lg" style="width: 100%;"><span class="glyphicon glyphicon-ok-sign"></span>Delete</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
