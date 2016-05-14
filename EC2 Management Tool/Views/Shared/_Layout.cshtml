@@ -21,11 +21,13 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    @if (User.Identity.IsAuthenticated)
+                    <!-- Ensure that a verified user is on so you dont leak server information-->
+                    @if (User.Identity.IsAuthenticated) 
                     {
                     <li>@Html.ActionLink("Home/EC2", "Index", "Home")</li>
                     <li>@Html.ActionLink("S3/EBS", "S3", "S3")</li>
                     <li>@Html.ActionLink("Security Groups", "SecurityGroups", "SecurityGroups")</li>
+                    <li>@Html.ActionLink("Schedules", "Schedule", "Schedule")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                     }
