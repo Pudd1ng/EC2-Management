@@ -1,5 +1,11 @@
 ﻿@model dynamic
 @using WebMatrix.Data;
+
+@{
+    var db = Database.Open("DefaultConnection");
+    var selectQueryString = "SELECT * FROM Schedule ORDER BY Name";
+}
+
 @{
     ViewBag.Title = "Schedules";
 }
@@ -12,7 +18,11 @@
 <div class="btn-group" role="group" aria-label="...">
     <button type="button" class="btn btn-default" data-target="#modalcreate" data-toggle="modal">Create Group</button>
     <button type="button" class="btn btn-default" data-target="#modaldelete" data-toggle="modal">Delete Group</button>
-    <b></b>
+    <!-- Bootstrap doesnt scale well without using span-->
+    <br>
+    <br>
+    <br>
+    <br>
 </div>
 
 <table id="table" class="table table-bordred table-striped">
@@ -25,7 +35,15 @@
         </tr>
      </thead>
      <tbody>
-         @*Loop through db here*@
+         @foreach (var row in db.Query(selectQueryString))
+         {
+         <tr>
+            <td>@row.Name</td>
+            <td>@row.Id</td>
+            <td>@row.Days</td>
+            <td>@row.Hours</td>
+        </tr>
+         }
      </tbody>
 </table>
 
@@ -80,7 +98,12 @@
                             <form action="/Schedule/DeleteSchedule/" method="POST">
                                 <div class="form-group">
                                     <label for="ScheduleName">Schedule Name:</label>
-                                    <input name="ScheduleName" class="form-control text-center" type="text" placeholder="ScheduleName" style="margin: 0 auto">
+                                    <select class="form-control text-center" name="groupNames" id="groupnames" style="margin: 0 auto">
+                                        @foreach (var row in db.Query(selectQueryString))
+                                        {
+                                            <option>@row.Name</option>
+                                        }
+                                    </select>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="submit" class="btn btn-danger btn-lg" style="width: 100%;"><span class="glyphicon glyphicon-ok-sign"></span>Delete</button>

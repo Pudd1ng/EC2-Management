@@ -274,6 +274,7 @@
     <Content Include="Views\S3\S3.cshtml" />
     <Content Include="Views\SecurityGroups\SecurityGroups.cshtml" />
     <Content Include="Views\Schedule\Schedule.cshtml" />
+    <Content Include="Views\ErrorPages\HttpErrorPage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

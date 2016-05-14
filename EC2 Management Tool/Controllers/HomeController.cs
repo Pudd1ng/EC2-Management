@@ -13,6 +13,7 @@ namespace EC2_Management_Tool.Controllers
         public ActionResult Index()
         {
             dynamic model = new ExpandoObject();
+            ViewBag.Message = TempData["pass"];
             EC2ServersModels ec2m = new EC2ServersModels();
             SecurityGroupModel sgm = new SecurityGroupModel();
             var groups = sgm.GetGroups();
@@ -51,6 +52,15 @@ namespace EC2_Management_Tool.Controllers
         {
             EC2ServersModels ec2m = new EC2ServersModels();
             ec2m.StopInstance(instanceId);
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public ActionResult GetPassword(string instanceId, string privateKey)
+        {
+            EC2ServersModels ec2m = new EC2ServersModels();
+            var pass = ec2m.GetPassword(instanceId, privateKey);
+            TempData["pass"] = pass;
             return RedirectToAction("Index");
         }
 

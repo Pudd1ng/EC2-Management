@@ -2,7 +2,6 @@
 @{
     ViewBag.Title = "Home Page";
 }
-
 <script type="text/javascript" charset="utf8" src="//code.jquery.com/jquery-1.10.2.js"></script>
 <link rel="stylesheet" type="text/css" href="/DataTables/datatables.min.css" />
 <script type="text/javascript" src="/DataTables/datatables.min.js"></script>
@@ -14,7 +13,13 @@
     <button type="button" class="btn btn-default" data-target="#modaldelete" data-toggle="modal">Delete Instance</button>
     <button type="button" class="btn btn-default" data-target="#modalstart" data-toggle="modal">Start Instance</button>
     <button type="button" class="btn btn-default" data-target="#modalstop" data-toggle="modal">Stop Instance</button>
-    <button type="button" class="btn btn-default" data-target="#modaldelete" data-toggle="modal">Schedule Instance</button>
+    <button type="button" class="btn btn-default" data-target="#modalschedule" data-toggle="modal">Schedule Instance</button>
+    <button type="button" class="btn btn-default" data-target="#modalpassword" data-toggle="modal">Retrieve Password</button>
+    <!-- Bootstrap doesnt scale well without using span-->
+    <br>
+    <br>
+    <br>
+    <br>
 </div>
 
 <table id="table1" class="table table-bordred table-striped">
@@ -64,6 +69,17 @@
 <script type="text/javascript">
     $('#table1').DataTable();
 </script>
+
+@if (ViewBag.Message != null)
+{
+    <script>
+        $(document).ready(function ()
+        {
+        alert('@ViewBag.Message');
+        });
+    </script>
+}
+
 
 <div class="container">
     <div class="modal fade" id="modalcreate" tabindex="-1" role="dialog" aria-labelledby="createGroup" aria-hidden="true">
@@ -217,6 +233,48 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="submit" class="btn btn-warning btn-lg" style="width: 100%;"><span class="glyphicon glyphicon-ok-sign"></span> Stop</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="modal fade" id="modalpassword" tabindex="-1" role="dialog" aria-labelledby="stopInstance" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                    <h4 class="modal-title text-center">Get a Password</h4>
+                </div>
+
+                <div class="modal-body" style="text-align: center">
+                    <div class="row">
+                        <div class="modal-body" style="text-align: center">
+                            <form action="/Home/GetPassword/" method="POST">
+                                <div class="form-group">
+                                    <p>Be sure to double check your Id before decryption</p>
+                                    <label for="instanceId">InstanceId:</label>
+                                    <select class="form-control text-center" name="instanceId" id="groups" style="margin: 0 auto">
+                                        @for (var i = 0; i <= totalcount - 1; i++)
+                                        {
+                                            foreach (var instances in Model.instances.Reservations[i].Instances)
+                                            {
+                                                <option>@instances.InstanceId</option>
+                                            }
+                                        }
+                                    </select>
+                                    <label for="Private Key">PrivateKey:</label>
+                                    <textarea class="form-control text-center" rows="23" cols="76" name="privateKey" id="privateKey" style="margin: 0 auto">
+                                     
+                                    </textarea>
+                                </div>
+
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-success btn-lg" style="width: 100%;"><span class="glyphicon glyphicon-ok-sign"></span> Decrypt</button>
                                 </div>
                             </form>
                         </div>

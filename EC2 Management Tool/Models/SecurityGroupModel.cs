@@ -43,11 +43,13 @@ namespace EC2_Management_Tool.Models
 
         public void DeleteGroup(string groupName)
         {
-            var deleteSgRequest = new DeleteSecurityGroupRequest()
             {
-                GroupName = groupName
-            };
-            var deleteSgResponse = client.DeleteSecurityGroup(deleteSgRequest);
+                var deleteSgRequest = new DeleteSecurityGroupRequest()
+                {
+                    GroupName = groupName
+                };
+                var deleteSgResponse = client.DeleteSecurityGroup(deleteSgRequest);
+            }
         }
 
         public object GetGroups()

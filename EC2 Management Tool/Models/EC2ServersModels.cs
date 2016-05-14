@@ -85,5 +85,24 @@ namespace EC2_Management_Tool.Models
             return allEC2Response;
         }
 
+        public string GetPassword(string instanceId, string privateKey)
+        {
+            var getPassRequest = new GetPasswordDataRequest()
+            {
+                InstanceId = instanceId
+            };
+            var getPassResponse = client.GetPasswordData(getPassRequest);
+            if(string.IsNullOrEmpty(getPassResponse.PasswordData))
+            {
+                string emptyResponse = "The password for this instance is not available right now";
+                return   emptyResponse;
+            }
+            else
+            {
+                string passReponse = getPassResponse.GetDecryptedPassword(privateKey);
+                string passResponseFormat = string.Format("The password for this instance is {0}", passReponse);
+                return passResponseFormat;
+            }
+        }
     }
 }

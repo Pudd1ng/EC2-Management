@@ -35,9 +35,11 @@ namespace EC2_Management_Tool.Models
 
         public void DeleteVolume(string volumeId)
         {
-            var s3DeleteRequest = new DeleteVolumeRequest();
-            s3DeleteRequest.VolumeId = volumeId;
-            var s3DeleteResponse = client.DeleteVolume(s3DeleteRequest);
+            {
+                var s3DeleteRequest = new DeleteVolumeRequest();
+                s3DeleteRequest.VolumeId = volumeId;
+                var s3DeleteResponse = client.DeleteVolume(s3DeleteRequest);
+            }
         }
 
         public void CreateVolume(int size, string type, string zone)
