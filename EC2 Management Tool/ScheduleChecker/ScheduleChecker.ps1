@@ -25,10 +25,18 @@ function SelectDataSet($sqlConnection)
     $dataTable.Load($dataItems) 
     $dataRows = $dataTable.Select()
     $dataHash = @{}
+    $hourHash = @{}
+    $dayHash  = @{}
     foreach ($row in $dataRows)
     {
-        $dataHash.Add($row.InstanceId,$row.Hours, $row.Days)
+        $hourHash.Add($row.ServerId,$row.Hours)
     }
+    foreach ($row in $dataRows)
+    {
+        $dayHash.Add($row.ServerId,$row.Days)
+    }
+    $datahash.Add("dayHash",$dayHash)
+    $datahash.Add("hourHash", $hourHash)
     return $dataHash  
 }
 
@@ -50,24 +58,97 @@ function ToArray
 
 function RunSchedules($data)
 {
-    $currentDate = Get-Date
-    $currentDay = $currentDate.DayOfWeek
-    $currentHour = $currentDate.Hour
-    $previousHour = $currentHour - 1
-    foreach ($server in $data.GetEnumerator())
+$currentDate = Get-Date
+$currentDay = $currentDate.DayOfWeek
+$currentHour = $currentDate.Hour
+$previousHour = $currentHour - 1
+
+    foreach($server in $data.Item("dayHash"))
     {
-        $scheduleArray = $server.Value | ToArray
-        $serverId = $server.Name
-        if(($scheduleArray[$currenthour] -eq "1") -and ($scheduleArray[$previousHour] -eq "0"))
+        foreach($h in $server.GetEnumerator())
         {
-            Start-EC2Instance $serverId
-        }
-        if(($scheduleArray[$currenthour] -eq "0") -and ($scheduleArray[$previousHour] -eq "1"))
-        {
-            Stop-EC2Instance $serverId
+        $chararray = [char[]]$h.Value
+            switch ($currentDay)
+            {
+                Monday 
+                {
+                    if($chararray[0] -eq "1")
+                    {
+                        $sh = scheduleHour($data)
+                    }
+                }
+                Tuesday 
+                {
+                    if($chararray[1] -eq "1")
+                    {
+                        $sh = scheduleHour($data)
+                    }
+                }
+                Wednesday 
+                {
+                    if($chararray[2] -eq "1")
+                    {
+                        $sh = scheduleHour($data)
+                    }
+
+                }
+                Thursday 
+                {
+                    if($chararray[3] -eq "1")
+                    {
+                        $sh = scheduleHour($data)
+                    }
+                }
+                Friday 
+                {
+                    if($chararray[4] -eq "1")
+                    {
+                        $sh = scheduleHour($data)
+                    }
+
+                }
+                Saturday 
+                {
+                    if($chararray[5] -eq "1")
+                    {
+                        $sh = scheduleHour($data)
+                    }
+
+                }
+                Sunday 
+                {
+                    if($chararray[6] -eq 1)
+                    {
+                        $sh = scheduleHour($data)
+                    }
+
+                }
+            }
         }
     }
 }
+
+
+function scheduleHour($data)
+{
+    foreach($server in $data.Item("hourHash"))
+    {
+        foreach ($h in $server.GetEnumerator())
+        {
+            $scheduleArray = [char[]]$h.Value
+            $serverId = $h.Name
+            if(($scheduleArray[$currenthour] -eq "1") -and ($scheduleArray[$previousHour] -eq "0"))
+            {
+                Start-EC2Instance $serverId
+            }
+            if(($scheduleArray[$currenthour] -eq "0") -and ($scheduleArray[$previousHour] -eq "1"))
+            {
+                Stop-EC2Instance $serverId
+            }
+        }
+    }
+}
+      
 
 function Main()
 {
