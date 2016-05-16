@@ -96,7 +96,7 @@
                             <form action="/SecurityGroups/DeleteGroup/" method="POST">
                                 <div class="form-group">
                                     <label for="groupName">Group Name:</label>
-                                    <select class="form-control text-center" name="groupNames" id="groupnames" style="margin: 0 auto">
+                                    <select class="form-control text-center" name="groupName" id="groupnames" style="margin: 0 auto">
                                         @foreach (var group in Model.group)
                                         {
                                             <option>@group.GroupName</option>

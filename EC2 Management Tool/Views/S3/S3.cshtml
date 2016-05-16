@@ -29,6 +29,7 @@
             <th>Size</th>
             <th>Volume Type</th>
             <th>State</th>
+            <th>DeviceId</th>
             <th>Zone</th>
         </tr>
     </thead>
@@ -48,6 +49,14 @@
                 <td>@volume.Size</td>
                 <td>@volume.VolumeType</td>
                 <td>@volume.State</td>
+                @if (volume.Attachments.Count != 0)
+                {
+                    <th>@volume.Attachments[0].Device</th>
+                }
+                else
+                {
+                    <td>No Device</td>
+                }
                 <td>@volume.AvailabilityZone</td>
             </tr>
         }
@@ -184,17 +193,17 @@
     </div>
 </div>
 <div class="container">
-    <div class="modal fade" id="modaldettach" tabindex="-1" role="dialog" aria-labelledby="attachVolume" aria-hidden="true">
+    <div class="modal fade" id="modaldetach" tabindex="-1" role="dialog" aria-labelledby="detachVolume" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
-                    <h4 class="modal-title text-center">dettach a volume</h4>
+                    <h4 class="modal-title text-center">Detach a volume</h4>
                 </div>
                 <div class="modal-body" style="text-align: center">
                     <div class="row">
                         <div class="modal-body" style="text-align: center">
-                            <form action="/S3/AttachVolume/" method="POST">
+                            <form action="/S3/DetachVolume/" method="POST">
                                 <div class="form-group">
                                     <p>Please double check the ids of your instance and volume</p>
                                     <label for="instanceId">InstanceId:</label>
@@ -208,7 +217,12 @@
                                         }
                                     </select>
                                     <label for="type">Volume Id:</label>
-                                    <select class="form-control text-center" name="volumeId" id="volumeId" style="margin: 0 auto">
+                                    <input name="volumeId" class="form-control text-center" type="text" placeholder="" style="margin: 0 auto" required minlength=12 maxlength=12>
+                                    <label for="device">Device Name:</label>
+                                    <select class="form-control text-center" name="device" id="device" style="margin: 0 auto">
+                                        <option>/dev/sdh</option>
+                                        <option>/dev/sdj</option>
+                                        <option>/dev/sdb</option>
                                     </select>
                                 </div>
                                 <div class="modal-footer">

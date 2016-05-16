@@ -48,5 +48,13 @@ namespace EC2_Management_Tool.Controllers
             s3m.AttachVolume(volumeId, instanceId, device);
             return RedirectToAction("S3");
         }
+
+        [HttpPost]
+        public ActionResult DetachVolume(string volumeId, string instanceId, string device)
+        {
+            S3Model s3m = new S3Model();
+            s3m.DetachVolume(volumeId, instanceId, device);
+            return RedirectToAction("S3");
+        }
     }
 }
