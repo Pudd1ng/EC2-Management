@@ -58,7 +58,7 @@
                             <form action="/SecurityGroups/CreateGroup/" method="POST">
                                 <div class="form-group">
                                     <label for="groupName">Group Name:</label>
-                                    <input name="groupName" class="form-control text-center" type="text" placeholder="GroupName" style="margin: 0 auto">
+                                    <input name="groupName" class="form-control text-center" type="text" placeholder="GroupName" style="margin: 0 auto" required minlength=1 maxlength=25>
                                     <label for="groupDescription">Group Description:</label>
                                     <input name="groupDescription" class="form-control text-center" type="text" placeholder="GroupDescription" style="margin: 0 auto">
                                     <label for="ipRange">ip Range:</label>

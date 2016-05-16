@@ -24,7 +24,7 @@ namespace EC2_Management_Tool.Models
         public void createSchedule(string Name, string Days, string Hours)
         {
             string connectionString = "Data Source=.;Initial Catalog=EC2ManagementTool;Integrated Security=True";
-            var queryString = string.Format("INSERT INTO Schedule (Name, Days, Hours) VALUES ('{0}' , '{1}', '{2}')",Name, Days, Hours);
+            var queryString = string.Format("INSERT INTO Schedule (ScheduleName, Days, Hours) VALUES ('{0}' , '{1}', '{2}')",Name, Days, Hours);
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 using (SqlCommand command = new SqlCommand(queryString, connection))
@@ -39,7 +39,7 @@ namespace EC2_Management_Tool.Models
         public void deleteSchedule(string Name)
         {
             string connectionString = "Data Source=.;Initial Catalog=EC2ManagementTool;Integrated Security=True";
-            var queryString = string.Format("DELETE FROM Schedule WHERE Name = '{0}'", Name);
+            var queryString = string.Format("DELETE FROM Schedule WHERE ScheduleName = '{0}'", Name);
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 using (SqlCommand command = new SqlCommand(queryString, connection))
@@ -55,6 +55,21 @@ namespace EC2_Management_Tool.Models
         {
             string connectionString = "Data Source=.;Initial Catalog=EC2ManagementTool;Integrated Security=True";
             var queryString = string.Format("INSERT INTO ScheduledServer (ServerId, ScheduleName) VALUES ('{0}', '{1}')", instanceId, scheduleName);
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                using (SqlCommand command = new SqlCommand(queryString, connection))
+                {
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                    connection.Close();
+                }
+            }
+        }
+
+        public void UpdateSchedule(string instanceId, string scheduleName)
+        {
+            string connectionString = "Data Source=.;Initial Catalog=EC2ManagementTool;Integrated Security=True";
+            var queryString = string.Format("UPDATE ScheduledServer SET ScheduleName = '{0}' WHERE ServerId = '{1}'",scheduleName, instanceId);
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 using (SqlCommand command = new SqlCommand(queryString, connection))

@@ -40,5 +40,13 @@ namespace EC2_Management_Tool.Controllers
             sm.assignSchedule(instanceId, scheduleName);
             return RedirectToAction("Schedule");
         }
+
+        [HttpPost]
+        public ActionResult UpdateSchedule(string scheduleName, string instanceId)
+        {
+            ScheduleModel sm = new ScheduleModel();
+            sm.UpdateSchedule(instanceId, scheduleName);
+            return RedirectToAction("Schedule");
+        }
     }
 }

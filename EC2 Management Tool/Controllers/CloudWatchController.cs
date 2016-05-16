@@ -27,5 +27,13 @@ namespace EC2_Management_Tool.Controllers
             cwm.EnableMonitoring(instanceId);
             return RedirectToAction("CloudWatch");
         }
+
+        [HttpPost]
+        public ActionResult GetMetric(string metricName, string instanceId)
+        {
+            CloudWatchModel cwm = new CloudWatchModel();
+            cwm.GetMetric(metricName, instanceId);
+            return RedirectToAction("CloudWatch");
+        }
     }
 }

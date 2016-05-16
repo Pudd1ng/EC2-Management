@@ -282,6 +282,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="DataTables\DataTables-1.10.11\" />
+    <Folder Include="ScheduleChecker\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
