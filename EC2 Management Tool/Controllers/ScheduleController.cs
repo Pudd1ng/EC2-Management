@@ -16,11 +16,28 @@ namespace EC2_Management_Tool.Controllers
             dynamic model = new ExpandoObject();
             return View(model);
         }
+
         [HttpPost]
         public ActionResult CreateSchedule(string Name, string Days, string Hours)
         {
             ScheduleModel sm = new ScheduleModel();
             sm.createSchedule(Name, Days, Hours);
+            return RedirectToAction("Schedule");
+        }
+
+        [HttpPost]
+        public ActionResult DeleteSchedule(string Name)
+        {
+            ScheduleModel sm = new ScheduleModel();
+            sm.deleteSchedule(Name);
+            return RedirectToAction("Schedule");
+        }
+
+        [HttpPost]
+        public ActionResult AssignSchedule(string scheduleName, string instanceId)
+        {
+            ScheduleModel sm = new ScheduleModel();
+            sm.assignSchedule(instanceId, scheduleName);
             return RedirectToAction("Schedule");
         }
     }

@@ -50,5 +50,21 @@ namespace EC2_Management_Tool.Models
                 }
             }
         }
+
+        public void assignSchedule (string instanceId, string scheduleName)
+        {
+            string connectionString = "Data Source=.;Initial Catalog=EC2ManagementTool;Integrated Security=True";
+            var queryString = string.Format("INSERT INTO ScheduledServer (ServerId, ScheduleName) VALUES ('{0}', '{1}')", instanceId, scheduleName);
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                using (SqlCommand command = new SqlCommand(queryString, connection))
+                {
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                    connection.Close();
+                }
+            }
+        }
+
     }
 }

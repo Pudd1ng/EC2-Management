@@ -3,7 +3,7 @@
 
 @{
     var db = Database.Open("DefaultConnection");
-    var selectQueryString = "SELECT * FROM Schedule ORDER BY Name";
+    var selectQueryString = "SELECT * FROM Schedule";
 }
 
 @{
@@ -16,8 +16,9 @@
 <h2>SecurityGroups</h2>
 
 <div class="btn-group" role="group" aria-label="...">
-    <button type="button" class="btn btn-default" data-target="#modalcreate" data-toggle="modal">Create Group</button>
-    <button type="button" class="btn btn-default" data-target="#modaldelete" data-toggle="modal">Delete Group</button>
+    <button type="button" class="btn btn-default" data-target="#modalcreate" data-toggle="modal">Create Schedule</button>
+    <button type="button" class="btn btn-default" data-target="#modaldelete" data-toggle="modal">Delete Schedule</button>
+    <button type="button" class="btn btn-default" data-target="#modalassign" data-toggle="modal">Assign Schedule</button>
     <!-- Bootstrap doesnt scale well without using span-->
     <br>
     <br>
@@ -116,5 +117,39 @@
         </div>
     </div>
 </div>
+<div class="container">
+    <div class="modal fade" id="modalassign" tabindex="-1" role="dialog" aria-labelledby="assignSchedule" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                    <h4 class="modal-title text-center">Assign a Schedule</h4>
+                </div>
 
+                <div class="modal-body" style="text-align: center">
+                    <div class="row">
+                        <div class="modal-body" style="text-align: center">
+                            <form action="/Schedule/AssignSchedule/" method="POST">
+                                <div class="form-group">
+                                    <label for="ScheduleName">Schedule Name:</label>
+                                    <select class="form-control text-center" name="scheduleName" id="scheduleNames" style="margin: 0 auto">
+                                        @foreach (var row in db.Query(selectQueryString))
+                                        {
+                                            <option>@row.Name</option>
+                                        }
+                                    </select>
+                                    <label for="instanceId">InstanceId:</label>
+                                    <input name="instanceId" class="form-control text-center" type="text" placeholder="instanceId" style="margin: 0 auto">
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-success btn-lg" style="width: 100%;"><span class="glyphicon glyphicon-ok-sign"></span>Assign</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 

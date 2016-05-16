@@ -1,0 +1,100 @@
+﻿@model dynamic
+
+@{
+    ViewBag.Title = "CloudWatch";
+}
+
+<h2>CloudWatch</h2>
+
+<script type="text/javascript" charset="utf8" src="//code.jquery.com/jquery-1.10.2.js"></script>
+<link rel="stylesheet" type="text/css" href="/DataTables/datatables.min.css" />
+<script type="text/javascript" src="/DataTables/datatables.min.js"></script>
+
+<div class="btn-group" role="group" aria-label="...">
+    <button type="button" class="btn btn-default" data-target="#modalenable" data-toggle="modal">Enable Monitoring</button>
+    <button type="button" class="btn btn-default" data-target="#modalgenerate" data-toggle="modal">Generate Graph</button>
+    <!-- Bootstrap doesnt scale well without using span-->
+    <br>
+    <br>
+    <br>
+    <br>
+</div>
+
+<table id="table" class="table table-bordred table-striped">
+    <thead>
+        <tr>
+            <th>Instance Name</th>
+            <th>Instance ID</th>
+            <th>Launch Time</th>
+            <th>Instance Type</th>
+            <th>State</th>
+            <th>Public Ip</th>
+            <th>Zone</th>
+            <th>Monitoring State</th>
+        </tr>
+    </thead>
+    @{int totalcount = Model.instances.Reservations.Count;}
+    <tbody>
+        @for (var i = 0; i <= totalcount - 1; i++)
+        {
+            foreach (var instances in Model.instances.Reservations[i].Instances)
+            {
+                <tr>
+                    @* if an instance gets terminated and has no name it will show up as blank and stop the describe call from breaking *@
+                    @if (instances.Tags.Count > 0)
+                    {
+                        <td>
+                            @instances.Tags[0].Value
+                        </td>
+                    }
+                    else
+                    {
+                        <td>No Name</td>
+                    }
+                    <td>@instances.InstanceId</td>
+                    <td>@instances.LaunchTime</td>
+                    <td>@instances.InstanceType</td>
+                    <td>@instances.State.Name</td>f
+                    <td>@instances.PublicIpAddress</td>
+                    <td>@instances.Placement.AvailabilityZone</td>
+                    <td>@instances.Monitoring.State</td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+<script type="text/javascript">
+    $('#table').DataTable();
+</script>
+
+<div class="container">
+    <div class="modal fade" id="modalenable" tabindex="-1" role="dialog" aria-labelledby="enableInstance" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                    <h4 class="modal-title text-center">Enable Monitoring on an Instance</h4>
+                </div>
+
+                <div class="modal-body" style="text-align: center">
+                    <div class="row">
+                        <div class="modal-body" style="text-align: center">
+                            <form action="/CloudWatch/EnableMonitoring/" method="POST">
+                                <div class="form-group">
+                                    <p>Be sure to double check your Id before enabling</p>
+                                    <label for="instanceId">InstanceId:</label>
+                                    <input name="instanceId" class="form-control text-center" type="text" placeholder="InstanceId" style="margin: 0 auto">
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-success btn-lg" style="width: 100%;"><span class="glyphicon glyphicon-ok-sign"></span> Enable</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

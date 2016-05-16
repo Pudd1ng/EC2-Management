@@ -180,6 +180,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CloudWatchController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\S3Controller.cs" />
@@ -189,6 +190,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\CloudWatchModel.cs" />
     <Compile Include="Models\EC2ServersModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -275,6 +277,7 @@
     <Content Include="Views\SecurityGroups\SecurityGroups.cshtml" />
     <Content Include="Views\Schedule\Schedule.cshtml" />
     <Content Include="Views\ErrorPages\HttpErrorPage.cshtml" />
+    <Content Include="Views\CloudWatch\CloudWatch.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

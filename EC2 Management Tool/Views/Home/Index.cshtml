@@ -1,4 +1,10 @@
 ﻿@model dynamic
+@using WebMatrix.Data;
+
+@{
+    var db = Database.Open("DefaultConnection");
+    var selectQueryString = "SELECT * FROM ScheduledServer";
+}
 @{
     ViewBag.Title = "Home Page";
 }
@@ -13,7 +19,6 @@
     <button type="button" class="btn btn-default" data-target="#modaldelete" data-toggle="modal">Delete Instance</button>
     <button type="button" class="btn btn-default" data-target="#modalstart" data-toggle="modal">Start Instance</button>
     <button type="button" class="btn btn-default" data-target="#modalstop" data-toggle="modal">Stop Instance</button>
-    <button type="button" class="btn btn-default" data-target="#modalschedule" data-toggle="modal">Schedule Instance</button>
     <button type="button" class="btn btn-default" data-target="#modalpassword" data-toggle="modal">Retrieve Password</button>
     <!-- Bootstrap doesnt scale well without using span-->
     <br>
@@ -21,8 +26,7 @@
     <br>
     <br>
 </div>
-
-<table id="table1" class="table table-bordred table-striped">
+<table id="table" class="table table-bordred table-striped">
     <thead>
         <tr>
             <th>Instance Name</th>
@@ -59,7 +63,13 @@
                 <td>@instances.State.Name</td>f
                 <td>@instances.PublicIpAddress</td>
                 <td>@instances.Placement.AvailabilityZone</td>
-                <td>todo</td>
+                @foreach (var row in db.Query(selectQueryString))
+                {
+                    if(instances.InstanceId == row.ServerId)
+                    {
+                        <td>@row.ScheduleName</td>
+                    }
+                }
             </tr>
             }
         }
@@ -67,7 +77,7 @@
 </table>
 
 <script type="text/javascript">
-    $('#table1').DataTable();
+    $('#table').DataTable();
 </script>
 
 @if (ViewBag.Message != null)
@@ -268,8 +278,7 @@
                                         }
                                     </select>
                                     <label for="Private Key">PrivateKey:</label>
-                                    <textarea class="form-control text-center" rows="23" cols="76" name="privateKey" id="privateKey" style="margin: 0 auto">
-                                     
+                                    <textarea class="form-control text-center" rows="23" cols="76" name="privateKey" id="privateKey" style="margin: 0 auto">                                    
                                     </textarea>
                                 </div>
 
