@@ -37,7 +37,7 @@ namespace EC2_Management_Tool.Models
                 Namespace = "AWS/EC2",
                 Period = (int)TimeSpan.FromDays(1).TotalSeconds,
                 StartTime = DateTime.Today.Subtract(TimeSpan.FromDays(7)),
-                Statistics = new List<string> { "Maximum" },
+                Statistics = new List<string> { "Average" },
                 Unit = StandardUnit.Percent
             };
 

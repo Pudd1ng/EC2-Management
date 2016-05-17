@@ -40,22 +40,6 @@ function SelectDataSet($sqlConnection)
     return $dataHash  
 }
 
-function ToArray
-{
-    begin
-    {
-        $output = @();
-    }
-    process
-    {
-        $output += $_;
-    }
-    end
-    {
-        return $output;
-    }
-}
-
 function RunSchedules($data)
 {
 $currentDate = Get-Date
@@ -76,6 +60,11 @@ $previousHour = $currentHour - 1
                     {
                         $sh = scheduleHour($data)
                     }
+                    else
+                    {
+                        $serverId = $h.Name
+                        Stop-EC2Instance $serverId
+                    }
                 }
                 Tuesday 
                 {
@@ -83,12 +72,22 @@ $previousHour = $currentHour - 1
                     {
                         $sh = scheduleHour($data)
                     }
+                    else
+                    {
+                        $serverId = $h.Name
+                        Stop-EC2Instance $serverId
+                    }
                 }
                 Wednesday 
                 {
                     if($chararray[2] -eq "1")
                     {
                         $sh = scheduleHour($data)
+                    }
+                    else
+                    {
+                        $serverId = $h.Name
+                        Stop-EC2Instance $serverId
                     }
 
                 }
@@ -98,12 +97,22 @@ $previousHour = $currentHour - 1
                     {
                         $sh = scheduleHour($data)
                     }
+                    else
+                    {
+                        $serverId = $h.Name
+                        Stop-EC2Instance $serverId
+                    }
                 }
                 Friday 
                 {
                     if($chararray[4] -eq "1")
                     {
                         $sh = scheduleHour($data)
+                    }
+                    else
+                    {
+                        $serverId = $h.Name
+                        Stop-EC2Instance $serverId
                     }
 
                 }
@@ -113,6 +122,11 @@ $previousHour = $currentHour - 1
                     {
                         $sh = scheduleHour($data)
                     }
+                    else
+                    {
+                        $serverId = $h.Name
+                        Stop-EC2Instance $serverId
+                    }
 
                 }
                 Sunday 
@@ -120,6 +134,11 @@ $previousHour = $currentHour - 1
                     if($chararray[6] -eq 1)
                     {
                         $sh = scheduleHour($data)
+                    }
+                    else
+                    {
+                        $serverId = $h.Name
+                        Stop-EC2Instance $serverId
                     }
 
                 }
